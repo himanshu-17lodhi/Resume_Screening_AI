@@ -1,0 +1,19 @@
+Jane Smith
+Email: jane.smith@example.com
+Phone: +1 987-654-3210
+
+Professional Summary:
+Data scientist with experience in machine learning, natural language processing, and model deployment. Adept at working with large datasets and deploying ML models via REST APIs.
+
+Skills:
+- Python, Scikit-learn, TensorFlow
+- NLP, TF-IDF, Word2Vec
+- FastAPI, Flask
+- AWS EC2, S3, Lambda
+- SQL, MongoDB
+
+Experience:
+Data Scientist at AI Labs (2020–2023)
+- Built NLP-based classification models for resume screening
+- Deployed models via FastAPI on AWS EC2
+- Worked on fraud detection and recommendation systems
