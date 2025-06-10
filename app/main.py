@@ -1,15 +1,19 @@
-from fastapi import FastAPI, UploadFile, HTTPException
+from fastapi import FastAPI, UploadFile, HTTPException, Body
 from fastapi.middleware.cors import CORSMiddleware
-from app.model import load_model, get_similarity_score
-from typing import List
+from app.model import (
+    load_model, 
+    get_similarity_score, 
+    extract_text_from_file, 
+    get_spacy_similarity,
+    nlp
+)
 import os
 
 app = FastAPI()
 
-# Enable CORS for frontend access
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # For local dev; restrict in production!
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -27,22 +31,37 @@ async def health():
     return {"status": "ok"}
 
 @app.post("/predict/")
-async def match_score(resume: UploadFile, jd: UploadFile):
-    if vectorizer is None:
-        raise HTTPException(status_code=500, detail="Model not loaded.")
-    resume_text = (await resume.read()).decode("utf-8")
-    jd_text = (await jd.read()).decode("utf-8")
-    score = get_similarity_score(resume_text, jd_text, vectorizer)
+async def match_score(resume: UploadFile, jd: UploadFile, method: str = "tfidf"):
+    try:
+        resume_text = extract_text_from_file(resume)
+        jd_text = extract_text_from_file(jd)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    if method == "spacy":
+        if nlp is None:
+            raise HTTPException(status_code=500, detail="spaCy model not loaded.")
+        score = get_spacy_similarity(resume_text, jd_text)
+    else:
+        if vectorizer is None:
+            raise HTTPException(status_code=500, detail="TF-IDF model not loaded.")
+        score = get_similarity_score(resume_text, jd_text, vectorizer)
     return {"match_score": round(score * 100, 2)}
 
-@app.post("/predict/batch/")
-async def batch_match_score(resumes: List[UploadFile], jd: UploadFile):
-    if vectorizer is None:
-        raise HTTPException(status_code=500, detail="Model not loaded.")
-    jd_text = (await jd.read()).decode("utf-8")
-    scores = []
-    for resume in resumes:
-        resume_text = (await resume.read()).decode("utf-8")
+@app.post("/predict/text/")
+async def match_score_text(payload: dict = Body(...)):
+    resume_text = payload.get("resume", "")
+    jd_text = payload.get("jd", "")
+    method = payload.get("method", "tfidf")
+    if not resume_text or not jd_text:
+        raise HTTPException(status_code=400, detail="Both resume and JD text must be provided.")
+
+    if method == "spacy":
+        if nlp is None:
+            raise HTTPException(status_code=500, detail="spaCy model not loaded.")
+        score = get_spacy_similarity(resume_text, jd_text)
+    else:
+        if vectorizer is None:
+            raise HTTPException(status_code=500, detail="TF-IDF model not loaded.")
         score = get_similarity_score(resume_text, jd_text, vectorizer)
-        scores.append({"filename": resume.filename, "match_score": round(score * 100, 2)})
-    return {"results": scores}
+    return {"match_score": round(score * 100, 2)}
