@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+models/
+sample_data/resumes/*.txt
+sample_data/job_descriptions/*.txt
+.DS_Store

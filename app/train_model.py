@@ -1,6 +1,6 @@
 import os
-from model import train_model, save_model
-
+from app.model import train_model, save_model
+from pathlib import Path
 
 def load_texts_from_folder(folder_path):
     texts = []
@@ -11,17 +11,14 @@ def load_texts_from_folder(folder_path):
                 texts.append(f.read())
     return texts
 
-# Load resumes and job descriptions
-resume_folder = os.path.abspath("sample_data/resumes")
-jd_folder = os.path.abspath("sample_data/job_descriptions")
-
-print("Loading resumes from:", resume_folder)
-resumes = load_texts_from_folder(resume_folder)
-
-print("Loading job descriptions from:", jd_folder)
-jds = load_texts_from_folder(jd_folder)
-
-# Train and save the model
-vectorizer, _ = train_model(resumes, jds)
-save_model(vectorizer)
-print("Model trained and saved to 'model/tfidf_model.pkl'")
+if __name__ == "__main__":
+    resume_folder = Path("sample_data/resumes").resolve()
+    jd_folder = Path("sample_data/job_descriptions").resolve()
+    print(f"Loading resumes from: {resume_folder}")
+    resumes = load_texts_from_folder(resume_folder)
+    print(f"Loading job descriptions from: {jd_folder}")
+    jds = load_texts_from_folder(jd_folder)
+    vectorizer = train_model(resumes, jds)
+    os.makedirs("models", exist_ok=True)
+    save_model(vectorizer, path="models/tfidf_model.pkl")
+    print("Model trained and saved to 'models/tfidf_model.pkl'")
