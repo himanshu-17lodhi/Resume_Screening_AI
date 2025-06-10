@@ -110,7 +110,7 @@ Resume_Screening_AI/
 | Name     | Skills                | Experience (yrs) | Education         | Score  |
 |----------|-----------------------|------------------|-------------------|--------|
 | Abhimanyu kumar    | Python, ML, SQL       | 3                | B.Tech CS         | 89.5   |
-| Rajat Prajapati   | Java, Project Mgmt    | 5                | M.Tech IT         | 91.2   |
+| Rajat Prajapati   | Java, Project   | 5                | M.Tech IT         | 91.2   |
 
 ---
 
