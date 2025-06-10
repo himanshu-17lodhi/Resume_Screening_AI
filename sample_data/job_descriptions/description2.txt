@@ -1,7 +1,0 @@
-Looking for an NLP Data Scientist to work on machine learning models for resume parsing and job-candidate matching. Candidate should have experience with TF-IDF, Scikit-learn, and deploying ML APIs.
-
-Requirements:
-- Solid understanding of NLP concepts
-- Experience with TF-IDF, Word Embeddings
-- Ability to deploy models using FastAPI or Flask
-- Familiar with AWS services and SQL/NoSQL databases

@@ -1,7 +1,0 @@
-We are hiring a Backend Python Developer with experience in FastAPI and RESTful API development. The candidate should have strong knowledge of Python, SQL databases, and experience deploying applications on AWS.
-
-Requirements:
-- 2+ years of experience in Python
-- Proficient in FastAPI, Flask, and PostgreSQL
-- Understanding of REST API design principles
-- Experience with AWS EC2, S3
