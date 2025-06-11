@@ -1,5 +1,6 @@
 from fastapi import FastAPI, UploadFile, HTTPException, Body
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from app.model import (
     load_model, 
     get_similarity_score, 
@@ -18,6 +19,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Mount the frontend directory to serve static files
+frontend_dir = os.path.join(os.path.dirname(__file__), "frontend")
+app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="static")
 
 model_path = os.path.join("models", "tfidf_model.pkl")
 try:
