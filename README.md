@@ -17,7 +17,6 @@ An AI-powered tool to automate and enhance the resume screening process for HR p
 - **Intelligent Ranking:** Scores and ranks resumes based on relevance to a provided job description.
 - **Multi-Format Support:** Compatible with `.pdf`, `.docx`, and other standard resume formats.
 - **Easy Integration:** Seamlessly fits into your existing HR workflows or ATS (Applicant Tracking Systems).
-- **Web Interface (Optional):** Deployable with a clean front-end UI for uploading and comparing resumes live.
 
 ---
 
