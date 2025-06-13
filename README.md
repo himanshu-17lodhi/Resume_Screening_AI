@@ -22,9 +22,8 @@ An AI-powered tool to automate and enhance the resume screening process for HR p
 
 ## Tech Stack
 
-- **Backend:** Python, NLP (spaCy, NLTK), scikit-learn
-- **Frontend (Optional):** HTML/CSS, Flask
+- **Backend:** Python, NLP (spaCy), scikit-learn
+- **Frontend:** HTML/CSS
 - **Document Parsing:** PyMuPDF, python-docx
-- **Ranking Algorithm:** TF-IDF / Similarity Scoring
-
+- **Ranking Algorithm:** TF-IDF
 ---
